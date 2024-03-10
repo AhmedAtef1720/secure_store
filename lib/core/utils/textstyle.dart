@@ -35,3 +35,4 @@ TextStyle getsmallStyle(
       color: color,
       fontFamily: GoogleFonts.poppins().fontFamily);
     }
+    
