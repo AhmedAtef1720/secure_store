@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_state.dart';
+import 'package:secure_store/feature/presentation/model/view/view_model/Product_model.dart';
+
 
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitStates());
@@ -17,6 +19,7 @@ class AuthCubit extends Cubit<AuthStates> {
       User user = credential.user!;
       await user.updateDisplayName(name);
       FirebaseFirestore.instance.collection('Client').doc(user.uid).set({
+        'id': user.uid,
         'name': name,
         'email': user.email,
         'image': '',
@@ -35,38 +38,118 @@ class AuthCubit extends Cubit<AuthStates> {
       }
     }
   }
+  Login(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password
+
+      );
+      emit(LoginSuccesState());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        emit(LoginErrorState(error: 'الحساب غير موجود'));
+      } else if (e.code == 'wrong-password') {
+        emit(LoginErrorState(error: 'كلمه السر خاطئه'));
+      }
+    }
+  }
+
+  registerAdmin(String name, String email, String password) async {
+    try {
+      emit(SignUpLoadingState());
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User user = credential.user!;
+      await user.updateDisplayName(name);
+      FirebaseFirestore.instance.collection('Admin').doc(user.uid).set({
+        'id': user.uid,
+        'name': name,
+        'email': user.email,
+      }, SetOptions(merge: true));
+
+      emit(SignUpSuccesState());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        emit(SignUpErrorState(error: ' weak-password '));
+      } else if (e.code == 'email-already-in-use') {
+        emit(SignUpErrorState(error: '  the account already existes'));
+      } else {
+        emit(SignUpErrorState(error: 'wrong '));
+      }
+    }
+  }
+
+  uploadClientData({
+    required String uid,
+    required String image,
+    required String phone,
+    required String rate,
+    required String name,
+    required String email,
+  }) async {
+    emit(UploadClientDataLoadingState());
+
+    try {
+      FirebaseFirestore.instance.collection('Client').doc(uid).set({
+        'image': image,
+        'rate': rate,
+        'phone': phone,
+      }, SetOptions(merge: true));
+
+      emit(UploadClientDataSuccesState());
+    } catch (e) {
+      emit(UploadClientDataErrorState(error: 'حدثت مشكله حاول لاحقا'));
+    }
+  }
+
+  updateProductData(ProductModel product) {
+    
+    emit(UpdateProductDataLoadingState());
+
+    try {
+      FirebaseFirestore.instance
+          .collection('Product')
+          .doc(product.productTitle)
+          .set({
+        'productID': product.productTitle,
+        'productTitle': product.productTitle,
+        'productPrice': product.productPrice,
+        'productPhone': product.productPhone,
+        'productCategory': product.productCategory,
+        'productDescription': product.productDescription,
+        'productImage': product.productImage
+      }, SetOptions(merge: true));
+
+      emit(UpdateProductDataSuccesState());
+    } catch (e) {
+      emit(UpdateProductDataErrorState(error: 'error'));
+    }
+  }
+ 
+  updateCartData(ProductModel product) {
   
-  // registerDoctor(String name, String email, String password) async {
-  //   try {
-  //     emit(SignUpLoadingState());
-  //     final credential =
-  //         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //       email: email,
-  //       password: password,
-  //     );
-  //     User user = credential.user!;
-  //     await user.updateDisplayName(name);
-  //     FirebaseFirestore.instance.collection('Doctor').doc(user.uid).set({
-  //       'name': name,
-  //       'email': user.email,
-  //       'image': '',
-  //       'bio': '',
-  //       'phone': '',
-  //       'address': '',
-  //       'age': '',
-  //       'specialization': '',
+    emit(UpdateCartDataLoadingState());
 
-  //     }, SetOptions(merge: true));
+    try {
+      FirebaseFirestore.instance
+          .collection('Cart')
+          .doc(product.productPrice)
+          .set({
+        'cartID': product.productPrice,
+        'productTitle': product.productTitle,
+        'productPrice': product.productPrice,
+        'productCategory': product.productCategory,
+        'productDescription': product.productDescription,
+        'productImage': product.productImage
+      }, SetOptions(merge: true));
 
-  //     emit(SignUpSuccesState());
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'weak-password') {
-  //       emit(SignUpErrorState(error: 'كلمه المرور ضعيفه'));
-  //     } else if (e.code == 'email-already-in-use') {
-  //       emit(SignUpErrorState(error: 'الحساب موجود بالفعل'));
-  //     } else {
-  //       emit(SignUpErrorState(error: 'حدث خطأ'));
-  //     }
-  //   }
-  // }
+      emit(UpdateCartDataSuccesState());
+    } catch (e) {
+      emit(UpdateCartDataErrorState(error: 'error'));
+    }
+  } 
 }

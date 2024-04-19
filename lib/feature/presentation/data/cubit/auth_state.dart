@@ -19,3 +19,25 @@ class SignUpErrorState extends AuthStates{
 
   SignUpErrorState({required this.error});
 }
+
+class UploadClientDataLoadingState extends AuthStates{}
+class UploadClientDataSuccesState extends AuthStates{}
+class UploadClientDataErrorState extends AuthStates{
+  final String error;
+
+  UploadClientDataErrorState({required this.error});
+}
+class UpdateProductDataLoadingState extends AuthStates{}
+class UpdateProductDataSuccesState extends AuthStates{}
+class UpdateProductDataErrorState extends AuthStates{
+  final String error;
+
+  UpdateProductDataErrorState({required this.error});
+}
+class UpdateCartDataLoadingState extends AuthStates{}
+class UpdateCartDataSuccesState extends AuthStates{}
+class UpdateCartDataErrorState extends AuthStates{
+  final String error;
+
+  UpdateCartDataErrorState({required this.error});
+}

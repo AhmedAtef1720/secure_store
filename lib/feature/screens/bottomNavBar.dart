@@ -2,10 +2,10 @@ import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:secure_store/feature/home/home.dart';
-import 'package:secure_store/feature/screens/add_product.dart';
-import 'package:secure_store/feature/screens/chat.dart';
-import 'package:secure_store/feature/screens/favorite.dart';
-import 'package:secure_store/feature/screens/profile.dart';
+import 'package:secure_store/feature/screens/add_product/add_product.dart';
+import 'package:secure_store/feature/screens/chat/chat.dart';
+import 'package:secure_store/feature/screens/favorite/favorite.dart';
+import 'package:secure_store/feature/screens/profile/userProfile.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -18,10 +18,9 @@ class NavBarState extends State<NavBar> {
   int _index = 0;
   List<Widget> screens = [
     const homePage(),
-    const chatView(),
-    const addProductView(),
-    const favoriteView(),
-    const profileView(),
+    const chatView(),addProductView(),
+    favoriteView(),
+    const ClientProfile(),
   ];
 
   @override

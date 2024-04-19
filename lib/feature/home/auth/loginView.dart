@@ -6,7 +6,7 @@ import 'package:secure_store/core/services/routing.dart';
 import 'package:secure_store/core/services/showLoadingDialog.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
-import 'package:secure_store/core/widget/nav_par.dart';
+import 'package:secure_store/feature/screens/bottomNavBar.dart';
 import 'package:secure_store/feature/home/auth/register.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_cubit.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_state.dart';
@@ -22,9 +22,9 @@ class _loginViewState extends State<loginView> {
 
 
 final GlobalKey<FormState> _formkey=GlobalKey<FormState>();
-final TextEditingController _displayName=TextEditingController();
-final TextEditingController _passwordcontroller=TextEditingController();
+
 final TextEditingController _emailcontroller=TextEditingController();
+final TextEditingController _passwordcontroller=TextEditingController();
   
   bool isVisible=true;
  
@@ -32,17 +32,17 @@ final TextEditingController _emailcontroller=TextEditingController();
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthStates>(
       listener: (context, state) {
-        if (state is SignUpSuccesState) {
+        if (state is LoginSuccesState) {
             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> NavBar()), (route) => false);
       
-        } else if (state is SignUpErrorState) {
+        } else if (state is LoginErrorState) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.error)));
         } else {
           showLoadingDialog(context);
         }
       },
-      child: Scaffold(backgroundColor: appcolors.primerycolor,
+      child: Scaffold(backgroundColor: appcolors.whitecolor,
         body: Center(
           child: SingleChildScrollView(
             child: Form(key: _formkey,
@@ -53,23 +53,25 @@ final TextEditingController _emailcontroller=TextEditingController();
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 50),
-                      child: Lottie.asset('assets/anim2.json',
-                        height: 240,
+                      child: Lottie.asset('assets/anm.json',
+                        height: 200,
                         width: 490,
                       ),
                     ),
                     Gap(9),
                     Text(
                       '  Secure Store',
-                      style: getbodyStyle(color: appcolors.whitecolor,fontSize: 28,fontWeight: FontWeight.bold),
+                      style: getbodyStyle(color: appcolors.primerycolor,fontSize: 28,fontWeight: FontWeight.bold),
                     ),Gap(20),TextFormField(textAlign: TextAlign.start,keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         filled: true,
-                        focusColor: appcolors.whitecolor,
+                        focusColor: appcolors.primerycolor,
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(color: Colors.white)),
                         hintText: 'email@.com',
+                         hintStyle: TextStyle(color: Colors.grey),
+                       
                         prefixIcon: Icon(Icons.email),
                         
                       ),validator: (value) {
@@ -82,11 +84,12 @@ final TextEditingController _emailcontroller=TextEditingController();
                     TextFormField(
                       decoration: InputDecoration(
                         filled: true,
-                        focusColor: appcolors.whitecolor,
+                        focusColor: appcolors.primerycolor,
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(color: Colors.white)),
-                        hintText: 'password',
+                        hintText: 'password', hintStyle: TextStyle(color: Colors.grey),
+                       
                         prefixIcon: Icon(Icons.lock),suffixIcon: Icon(Icons.remove_red_eye)
                       ),
                     ),
@@ -99,7 +102,7 @@ final TextEditingController _emailcontroller=TextEditingController();
                             Text(
                               textAlign: TextAlign.end,
                               ' forget password',
-                              style: getTitleStyle(color:Colors.white,fontSize: 15,fontWeight: FontWeight.normal),
+                              style: getTitleStyle(color:appcolors.primerycolor,fontSize: 15,fontWeight: FontWeight.normal),
                             ),
                           ],
                         )),
@@ -109,15 +112,15 @@ final TextEditingController _emailcontroller=TextEditingController();
                               style: ElevatedButton.styleFrom(
                         shape: ContinuousRectangleBorder(
                             borderRadius: BorderRadius.circular(50)),
-                        backgroundColor:appcolors.whitecolor,
-                        foregroundColor: appcolors.primerycolor ,
+                        backgroundColor:appcolors.primerycolor,
+                        foregroundColor: appcolors.whitecolor ,
                         elevation: 0),
                               onPressed: ()  async {
                                 if (_formkey.currentState!.validate()) {
-                                  context.read<AuthCubit>().registerClient(
-                                      _displayName.text,
+                                  context.read<AuthCubit>().Login(
+                                      _emailcontroller.text,
                                       _passwordcontroller.text,
-                                      _emailcontroller.text);
+                                      );
                                 }
                                 ;
                               },
@@ -137,8 +140,8 @@ final TextEditingController _emailcontroller=TextEditingController();
                    , Row(
                       children: [
                         Text(
-                          'don`t have account?',
-                          style: getsmallStyle(color: Colors.white,
+                          '          don`t have account?',
+                          style: getsmallStyle(color: appcolors.primerycolor,
                               fontSize: 16, fontWeight: FontWeight.normal),
                         ),
                         Gap(2),

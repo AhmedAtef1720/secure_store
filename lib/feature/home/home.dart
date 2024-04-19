@@ -1,9 +1,13 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
-import 'package:secure_store/feature/home/category_list.dart';
+import 'package:secure_store/core/utils/textstyle.dart';
+import 'package:secure_store/feature/home/widget/product_list.dart';
+import 'package:secure_store/feature/presentation/model/view/category_model.dart';
+import 'package:secure_store/feature/screens/search/SearchHomeView.dart';
+import 'package:secure_store/feature/screens/search/presentaition/search_view.dart';
 import 'package:svg_flutter/svg.dart';
 
 class homePage extends StatefulWidget {
@@ -14,6 +18,7 @@ class homePage extends StatefulWidget {
 }
 
 class homePageState extends State<homePage> {
+   final TextEditingController _productTitle = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +29,62 @@ class homePageState extends State<homePage> {
           length: 4,
           child: Column(
             children: [
-              TextFormField(
-                decoration: InputDecoration(
-                    hintText: "Find Cars, Mobile, Bike and More..",
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Icon(Icons.search, color: Colors.black, size: 40),
+                 TextFormField(
+                  textInputAction: TextInputAction.search,
+                  controller:_productTitle,
+                  decoration: InputDecoration(
+                    hintStyle: getTitleStyle(fontWeight: FontWeight.normal,fontSize: 18,color: Colors.white),
+                    filled: true,
+                    hintText: 'search ',
+                    suffixIcon: Container(
+                      decoration: BoxDecoration(
+                        color: appcolors.primerycolor.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(17),
+                      ),
+                      child: IconButton(
+                        iconSize: 20,
+                        splashRadius: 20,
+                        color: Colors.white,
+                        icon: const Icon(Icons.search),
+                        onPressed: () {
+                          setState(
+                            () {
+                              _productTitle.text.isEmpty
+                                  ? Container()
+                                  : Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SearchView(
+                                          searchKey: _productTitle.text,
+                                        ),
+                                      ),
+                                    );
+                            },
+                          );
+                        },
+                      ),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(35))),
-              ),
+                  ),
+                  style: getbodyStyle(),
+                  onFieldSubmitted: (String value) {
+                    setState(
+                      () {
+                        _productTitle.text.isEmpty
+                            ? Container()
+                            : Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SearchHomeView(
+                                    searchKey: _productTitle.text,
+                                  ),
+                                ),
+                              );
+                      },
+                    );
+                  },
+                ),
+              
+             
               ButtonsTabBar(
                 height: 120,
                 splashColor: Colors.white,
@@ -57,16 +106,16 @@ class homePageState extends State<homePage> {
                 ),
                 // Add your tabs here
                 tabs: [
-                  Tab(
+                  Tab(child: Text('car'),
                     icon: SvgPicture.asset('assets/icon car.svg'),
                   ),
-                  Tab(
+                  Tab(child: Text('Properety'),
                     icon: SvgPicture.asset('assets/icon building.svg'),
                   ),
-                  Tab(
+                  Tab(child: Text('Mobile'),
                     icon: SvgPicture.asset('assets/icon mobile.svg'),
                   ),
-                  Tab(
+                  Tab(child: Text('Bike'),
                     icon: SvgPicture.asset('assets/icon bike.svg'),
                   ),
                 ],
@@ -74,10 +123,8 @@ class homePageState extends State<homePage> {
               Expanded(
                   child: TabBarView(
                 children: [
-                  category_list(),
-                  category_list(),
-                  category_list(),
-                  category_list(),
+                  productList(category: Cate[0].products), productList(category: Cate[1].products,), productList(category: Cate[2].products),
+                  productList(category: Cate[3].products),
                   // Icon(Icons.favorite),
                   // Icon(Icons.add),
                   // Icon(Icons.person_2_rounded),
@@ -90,4 +137,3 @@ class homePageState extends State<homePage> {
     );
   }
 }
-

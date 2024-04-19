@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:secure_store/core/services/showLoadingDialog.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
-import 'package:secure_store/core/widget/nav_par.dart';
+import 'package:secure_store/feature/screens/bottomNavBar.dart';
 import 'package:secure_store/feature/home/auth/loginView.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_cubit.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_state.dart';
@@ -40,7 +40,7 @@ class _RegisterViewState extends State<RegisterView> {
           showLoadingDialog(context);
         }
       },
-      child: Scaffold(backgroundColor:Color(0xff084775),
+      child: Scaffold(backgroundColor:appcolors.whitecolor,
         body: Center(
           child: SingleChildScrollView(
             child: Form(
@@ -50,17 +50,17 @@ class _RegisterViewState extends State<RegisterView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                   Lottie.asset('assets/anim2.json'),
+                   Lottie.asset('assets/anm.json',height: 200),
                     const SizedBox(height: 20),
                     Text(
                       'secure store ',
-                      style: getTitleStyle(color: appcolors.whitecolor),
+                      style: getTitleStyle(color: appcolors.primerycolor),
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
                       keyboardType: TextInputType.name,
                       controller: _displayName,
-                      style: TextStyle(color: appcolors.blackcolor),
+                      style: TextStyle(color: appcolors.whitecolor),
                       decoration: InputDecoration(
                         hintText: 'name',
                         hintStyle: getsmallStyle(color: Colors.grey),
@@ -80,6 +80,7 @@ class _RegisterViewState extends State<RegisterView> {
                       textAlign: TextAlign.start,
                       decoration: const InputDecoration(
                         hintText: 'email@example.com',
+                        hintStyle: TextStyle(color: Colors.grey),
                         prefixIcon: Icon(Icons.email_rounded),
                       ),
                       validator: (value) {
@@ -97,11 +98,13 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     TextFormField(
                       textAlign: TextAlign.start,
-                      style: TextStyle(color: appcolors.blackcolor),
+                      style: TextStyle(color: appcolors.whitecolor),
                       obscureText: isVisable,
                       keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
                         hintText: '********',
+                         hintStyle: TextStyle(color: Colors.grey),
+                       
                         suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
@@ -127,8 +130,8 @@ class _RegisterViewState extends State<RegisterView> {
                         child: ElevatedButton( style: ElevatedButton.styleFrom(
                         shape: ContinuousRectangleBorder(
                             borderRadius: BorderRadius.circular(50)),
-                        backgroundColor:appcolors.whitecolor,
-                        foregroundColor: appcolors.primerycolor ,
+                        backgroundColor:appcolors.primerycolor,
+                        foregroundColor: appcolors.whitecolor ,
                         elevation: 0),
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
@@ -140,11 +143,11 @@ class _RegisterViewState extends State<RegisterView> {
                               
                             }
                           
-                         style: ElevatedButton.styleFrom(
+                         ElevatedButton.styleFrom(
                         shape: ContinuousRectangleBorder(
                             borderRadius: BorderRadius.circular(50)),
-                        backgroundColor:appcolors.whitecolor,
-                        foregroundColor: appcolors.primerycolor ,
+                        backgroundColor:appcolors.primerycolor,
+                        foregroundColor: appcolors.whitecolor ,
                         elevation: 0);
     }, 
                           child: Text(
@@ -160,7 +163,7 @@ class _RegisterViewState extends State<RegisterView> {
                         children: [
                           Text(
                             'have account ?',
-                            style: getsmallStyle(color: appcolors.whitecolor),
+                            style: getsmallStyle(color: appcolors.primerycolor),
                           ),
                           TextButton(
                               onPressed: () {

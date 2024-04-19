@@ -1,14 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
-import 'package:secure_store/core/utils/textstyle.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     this.background = const Color(0xffE5AE8),
     required this.text,
-    required this.onPressed,  this.fontSize=14, 
+    required this.onPressed,  this.fontSize=14, required Null Function() , 
   });
   final String text;
   final Function() onPressed;

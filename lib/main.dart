@@ -27,8 +27,8 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             inputDecorationTheme: InputDecorationTheme(filled: true,
-                fillColor: appcolors.whitecolor,
-                prefixIconColor: appcolors.primerycolor,
+                fillColor: appcolors.primerycolor ,
+                prefixIconColor: appcolors.whitecolor,
                 enabledBorder: OutlineInputBorder(
                    borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(23))),
