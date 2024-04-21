@@ -9,7 +9,6 @@ import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
 import 'package:secure_store/core/widget/tileWidget.dart';
 import 'package:secure_store/feature/screens/profile/userSettings.dart';
-
 class ClientProfile extends StatefulWidget {
   const ClientProfile({Key? key}) : super(key: key);
 
@@ -17,53 +16,53 @@ class ClientProfile extends StatefulWidget {
   _ClientProfileState createState() => _ClientProfileState();
 }
 
+User? user;
+
+File? file;
+
+String? profilurl;
+
+var imagePath;
+Future<void> getuser() async {
+  user = FirebaseAuth.instance.currentUser;
+}
+
 class _ClientProfileState extends State<ClientProfile> {
+  // 1) instance from FirebaseStorage with bucket Url..
   final FirebaseStorage _storage =
       FirebaseStorage.instanceFor(bucket: 'gs://store-12a8f.appspot.com');
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  String? _imagePath;
-  File? file;
-  String? profileUrl;
 
-  User? user;
-  String? UserID;
-
-  Future<void> _getUser() async {
-    user = FirebaseAuth.instance.currentUser;
-    print(user?.displayName);
-    UserID = user?.uid;
-  }
-
-  uploadImageToFireStore(File image, String imageName) async {
-    Reference ref =
-        _storage.ref().child('client/${_auth.currentUser!.uid}$imageName');
-    SettableMetadata metadata = SettableMetadata(contentType: 'image/jpeg');
+  // method to upload and get link of image
+  Future<String> uploadImageToFireStore(File image) async {
+    //2) choose file location (path)
+    var ref =
+        _storage.ref().child('Client/${FirebaseAuth.instance.currentUser!.uid}');
+    //3) choose file type (image/jpeg)
+    var metadata = SettableMetadata(contentType: 'image/jpeg');
+    // 4) upload image to Firebase Storage
     await ref.putFile(image, metadata);
+    // 5) get image url
     String url = await ref.getDownloadURL();
     return url;
   }
 
-  Future<void> _pickImage() async {
-    _getUser();
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
+  Future<void> pickImage() async {
+    getuser();
+    final PickedFile =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (PickedFile != null) {
       setState(() {
-        _imagePath = pickedFile.path;
-        file = File(pickedFile.path);
+        imagePath = PickedFile.path;
+        file = File(PickedFile.path);
       });
     }
-    profileUrl = await uploadImageToFireStore(file!, 'doc');
-    FirebaseFirestore.instance.collection('Client').doc(UserID).set({
-      'image': profileUrl,
-    }, SetOptions(merge: true));
+    profilurl = await uploadImageToFireStore(file!);
   }
 
   @override
   void initState() {
     super.initState();
-    _getUser();
+    getuser();
   }
 
   @override
@@ -126,8 +125,8 @@ class _ClientProfileState extends State<ClientProfile> {
                                   child: CircleAvatar(
                                       backgroundColor: appcolors.whitecolor,
                                       radius: 60,
-                                      backgroundImage: (_imagePath != null)
-                                          ? FileImage(File(_imagePath!))
+                                      backgroundImage: (imagePath != null)
+                                          ? FileImage(File(imagePath!))
                                               as ImageProvider
                                           : const AssetImage(
                                               'assets/person.png',
@@ -135,7 +134,7 @@ class _ClientProfileState extends State<ClientProfile> {
                                 ),
                                 GestureDetector(
                                   onTap: () async {
-                                    await _pickImage();
+                                    await pickImage();
                                   },
                                   child: CircleAvatar(
                                     radius: 15,

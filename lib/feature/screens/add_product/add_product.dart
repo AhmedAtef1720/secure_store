@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +50,7 @@ class _addProductViewState extends State<addProductView> {
   // method to upload and get link of image
   Future<String> uploadImageToFireStore(File image) async {
     //2) choose file location (path)
-    var ref = _storage.ref().child('product');
+    var ref = _storage.ref().child('${DateTime.now()}');
     //3) choose file type (image/jpeg)
     var metadata = SettableMetadata(contentType: 'image/jpeg');
     // 4) upload image to Firebase Storage
