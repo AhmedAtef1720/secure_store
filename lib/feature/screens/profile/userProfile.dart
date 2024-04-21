@@ -74,9 +74,6 @@ class _ClientProfileState extends State<ClientProfile> {
         title: const Text(
           'Account',
         ),
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
         actions: [
           IconButton(
             splashRadius: 20,

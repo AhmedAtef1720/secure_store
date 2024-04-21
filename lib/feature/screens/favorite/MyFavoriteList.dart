@@ -28,7 +28,7 @@ class _MyFavoriteListState extends State<MyFavoriteList> {
   ) {
     return FirebaseFirestore.instance
         .collection('Cart')
-        .doc('cartID')
+        .doc('productPrice')
         .delete();
   }
 
@@ -80,10 +80,9 @@ class _MyFavoriteListState extends State<MyFavoriteList> {
     return SafeArea(
       child: StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection('Cart')
-            .doc('Cart')
-            .collection('Pending')
-            .where('productTitle')
+            .collection('Cart').orderBy('productPrice')
+          
+            
              //.orderBy('date', descending: false)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

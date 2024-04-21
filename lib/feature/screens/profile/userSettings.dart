@@ -40,7 +40,7 @@ class _UserSettingsState extends State<UserSettings> {
             splashRadius: 25,
             icon: Icon(
               Icons.arrow_back_ios,
-              color: appcolors.greycolor,
+              color: appcolors.whitecolor,
             ),
             onPressed: () => Navigator.of(context).pop(),
           ),

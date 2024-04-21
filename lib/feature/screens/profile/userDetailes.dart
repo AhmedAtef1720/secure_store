@@ -40,7 +40,7 @@ class _UserDetailsState extends State<UserDetails> {
             splashRadius: 25,
             icon: Icon(
               Icons.arrow_back_ios,
-              color:appcolors.greycolor,
+              color:appcolors.whitecolor,
             ),
             onPressed: () => Navigator.of(context).pop(),
           ),

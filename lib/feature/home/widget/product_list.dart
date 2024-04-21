@@ -29,6 +29,7 @@ class _productListState extends State<productList> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? user;
+  bool isVisable =true;
 
   Future<void> _getUser() async {
     user = _auth.currentUser;
@@ -152,6 +153,13 @@ class _productListState extends State<productList> {
                                       },
                                       child: IconButton(
                                           onPressed: () {
+
+                              setState(() {
+                                
+                                isVisable = !isVisable;
+                              });
+                            
+                           
                                             context
                                                 .read<AuthCubit>()
                                                 .updateCartData(
@@ -191,8 +199,9 @@ class _productListState extends State<productList> {
                                             //   );
                                             // }
                                           },
-                                          icon: const Icon(
-                                              Icons.favorite_border)),
+                                          icon: Icon((isVisable)
+                                ? Icons.favorite_border
+                                : Icons.favorite)),
                                     ),
                                   ],
                                 ),
@@ -232,3 +241,12 @@ class _productListState extends State<productList> {
 //     'cartID': cart.productTitle,
 //   }, SetOptions(merge: true));
 // }
+//  IconButton(
+//                             onPressed: () {
+//                               setState(() {
+//                                 isVisable = !isVisable;
+//                               });
+//                             },
+//                             icon: Icon((isVisable)
+//                                 ? Icons.remove_red_eye
+//                                 : Icons.visibility_off_rounded)),

@@ -90,9 +90,9 @@ class _addProductViewState extends State<addProductView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios_new))
-          ],
+          // actions: [
+          //   IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios_new))
+          // ],
           backgroundColor: appcolors.primerycolor,
           centerTitle: true,
           title: Text(

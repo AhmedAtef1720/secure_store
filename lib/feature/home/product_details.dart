@@ -44,7 +44,7 @@ class _HomeDetailsState extends State<HomeDetails> {
       appBar: AppBar(
           backgroundColor: appcolors.primerycolor,
           leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
+              icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
               onPressed: () {
                 Navigator.of(context).pop();
               }),
