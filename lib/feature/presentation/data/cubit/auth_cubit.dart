@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_state.dart';
 import 'package:secure_store/feature/presentation/model/view/view_model/Product_model.dart';
 
-
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitStates());
 
@@ -38,13 +37,11 @@ class AuthCubit extends Cubit<AuthStates> {
       }
     }
   }
+
   Login(String email, String password) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password
-
-      );
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
       emit(LoginSuccesState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -107,7 +104,6 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   updateProductData(ProductModel product) {
-    
     emit(UpdateProductDataLoadingState());
 
     try {
@@ -129,13 +125,13 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(UpdateProductDataErrorState(error: 'error'));
     }
   }
- 
-  updateCartData(ProductModel product) {
-  
+
+  Future<void> updateCartData(ProductModel product) async {
+    print(product.productTitle);
     emit(UpdateCartDataLoadingState());
 
     try {
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('Cart')
           .doc(product.productPrice)
           .set({
@@ -145,11 +141,14 @@ class AuthCubit extends Cubit<AuthStates> {
         'productCategory': product.productCategory,
         'productDescription': product.productDescription,
         'productImage': product.productImage
-      }, SetOptions(merge: true));
+      }, SetOptions(merge: true)).then((value) {
+        print('Cart updated');
+      });
 
       emit(UpdateCartDataSuccesState());
     } catch (e) {
+      print(e.toString);
       emit(UpdateCartDataErrorState(error: 'error'));
     }
-  } 
+  }
 }

@@ -4,22 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:secure_store/core/services/routing.dart';
-import 'package:secure_store/core/services/showLoadingDialog.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
-import 'package:secure_store/core/widget/Alertdialog.dart';
 import 'package:secure_store/core/widget/custombtn.dart';
 import 'package:secure_store/feature/home/product_details.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_cubit.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_state.dart';
 import 'package:secure_store/feature/presentation/model/view/view_model/Product_model.dart';
-import 'package:secure_store/feature/screens/bottomNavBar.dart';
-import 'package:secure_store/feature/screens/favorite/MyFavoriteList.dart';
-import 'package:secure_store/feature/screens/favorite/favorite.dart';
+
+import '../../../core/services/showLoadingDialog.dart';
+import '../../screens/favorite/favorite.dart';
 
 class productList extends StatefulWidget {
-  final  category;
-  const productList({super.key,required this.category});
+  final category;
+  const productList({super.key, required this.category});
 
   @override
   _productListState createState() => _productListState();
@@ -28,7 +26,7 @@ class productList extends StatefulWidget {
 class _productListState extends State<productList> {
   @override
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
- 
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? user;
 
@@ -36,11 +34,13 @@ class _productListState extends State<productList> {
     user = _auth.currentUser;
   }
 
+  @override
   void initState() {
     super.initState();
     _getUser();
   }
 
+  @override
   Widget build(BuildContext context) {
     // orderBy  للترتيب
     // where  للمقارنة
@@ -49,7 +49,7 @@ class _productListState extends State<productList> {
       child: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('Product')
-            .where('productCategory',isEqualTo: widget.category)
+            .where('productCategory', isEqualTo: widget.category)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
@@ -64,6 +64,7 @@ class _productListState extends State<productList> {
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 DocumentSnapshot product = snapshot.data!.docs[index];
+                print(product['productTitle']);
                 if (product['productTitle'] == null ||
                     product['productImage'] == null ||
                     product['productPrice'] == null ||
@@ -103,13 +104,12 @@ class _productListState extends State<productList> {
                                               maxLines: 1,
                                               style: getsmallStyle(
                                                   color: Colors.white)),
-                                                 
-                                        
                                         ],
-                                      ),  Text(product['productPhone'],
-                                              maxLines: 1,
-                                              style: getsmallStyle(
-                                                  color: Colors.green))
+                                      ),
+                                      Text(product['productPhone'],
+                                          maxLines: 1,
+                                          style: getsmallStyle(
+                                              color: Colors.green))
                                     ],
                                   ),
                                 ),
@@ -120,7 +120,7 @@ class _productListState extends State<productList> {
                                         context,
                                         HomeDetails(
                                           title: product['productTitle'],
-                                           phone: product['productPhone'],
+                                          phone: product['productPhone'],
                                           price: product['productPrice'],
                                           description:
                                               product['productDescription'],
@@ -129,7 +129,7 @@ class _productListState extends State<productList> {
                                   },
                                   Function: () {},
                                 ),
-                                Gap(20),
+                                const Gap(20),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -138,36 +138,38 @@ class _productListState extends State<productList> {
                                           AuthStates state) {
                                         if (state
                                             is UpdateCartDataSuccesState) {
-                                          push(context, const favoriteView());
+                                          // push(context, const favoriteView());
                                         } else if (state
                                             is UpdateCartDataErrorState) {
                                           Navigator.pop(context);
 
                                           showErrorDialog(
-                                              context, Text('error'));
+                                              context, const Text('error'));
                                         } else {
                                           showLoadingDialog(context);
+                                          Navigator.pop(context);
                                         }
                                       },
                                       child: IconButton(
                                           onPressed: () {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              context
-                                                  .read<AuthCubit>()
-                                                  .updateCartData(ProductModel(
-                                                      productId: '',
-                                                      productTitle: product[
-                                                          'productTitle'],
-                                                      productPrice: product[
-                                                          'productPrice'],
-                                                      productCategory: '',
-                                                      productDescription: product[
-                                                          'productDescription'],
-                                                      productImage: product[
-                                                          'productImage'],
-                                                      productPhone: ''));
-                                            }
+                                            context
+                                                .read<AuthCubit>()
+                                                .updateCartData(
+                                                  ProductModel(
+                                                    productId: '',
+                                                    productTitle:
+                                                        product['productTitle'],
+                                                    productPrice:
+                                                        product['productPrice'],
+                                                    productCategory: '',
+                                                    productDescription: product[
+                                                        'productDescription'],
+                                                    productImage:
+                                                        product['productImage'],
+                                                    productPhone: '',
+                                                  ),
+                                                );
+
                                             // if (_formKey.currentState!
                                             //         .validate() &&
                                             //     isSelected != -1) {
@@ -189,7 +191,8 @@ class _productListState extends State<productList> {
                                             //   );
                                             // }
                                           },
-                                          icon: Icon(Icons.favorite_border)),
+                                          icon: const Icon(
+                                              Icons.favorite_border)),
                                     ),
                                   ],
                                 ),
