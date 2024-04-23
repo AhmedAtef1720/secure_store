@@ -36,7 +36,7 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(backgroundColor:appcolors.primerycolor ,
       body: Center(
-        child: Lottie.asset('assets/anm.json'
+        child: Lottie.asset('assets/secure.json'
         ,width: 250,height: 300),
       ),
     );

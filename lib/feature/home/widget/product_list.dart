@@ -140,16 +140,11 @@ class _productListState extends State<productList> {
                                         if (state
                                             is UpdateCartDataSuccesState) {
                                           // push(context, const favoriteView());
-                                        } else if (state
-                                            is UpdateCartDataErrorState) {
-                                          Navigator.pop(context);
+                                        } else  
 
                                           showErrorDialog(
                                               context, const Text('error'));
-                                        } else {
-                                          showLoadingDialog(context);
-                                          Navigator.pop(context);
-                                        }
+                                        
                                       },
                                       child: IconButton(
                                           onPressed: () {

@@ -50,7 +50,7 @@ class _RegisterViewState extends State<RegisterView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                   Lottie.asset('assets/anm.json',height: 200),
+                   Lottie.asset('assets/secure.json',height: 200),
                     const SizedBox(height: 20),
                     Text(
                       'secure store ',
@@ -74,7 +74,8 @@ class _RegisterViewState extends State<RegisterView> {
                     const SizedBox(
                       height: 25.0,
                     ),
-                    TextFormField(
+                    TextFormField(  style: TextStyle(color: appcolors.whitecolor),
+                    
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
                       textAlign: TextAlign.start,
