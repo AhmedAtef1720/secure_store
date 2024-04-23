@@ -75,7 +75,9 @@ class _SearchHomeViewState extends State<SearchHomeView> {
                                   ),
                                 ),
                               );
-                            });
+                            },
+                            onRemovedPressed: (){},
+                            );
                       },
                     ),
                   );

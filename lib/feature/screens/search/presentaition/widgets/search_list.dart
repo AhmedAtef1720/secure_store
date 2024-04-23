@@ -66,6 +66,7 @@ class _SearchListState extends State<searchList> {
                               image: Product['productImage'], phone: Product['productPhone'],
                             ));
                       },
+                      onRemovedPressed: (){},
                     );
                   },
                 ),

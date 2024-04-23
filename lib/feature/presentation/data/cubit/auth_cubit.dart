@@ -151,4 +151,29 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(UpdateCartDataErrorState(error: 'error'));
     }
   }
+
+  // Remove from cart
+
+Future<void> removeProductFromCart({required String productId}) async {
+  // Emit loading state to notify UI that removal is in progress
+  emit(RemoveCartDataLoadingState());
+
+  try {
+    // Delete the document from the 'Cart' collection based on the product ID
+    await FirebaseFirestore.instance
+        .collection('Cart')
+        .doc(productId)
+        .delete()
+        .then((_) {
+      // Emit success state to notify UI that removal is successful
+      emit(RemoveCartDataSuccesState());
+      print('Product removed from cart successfully');
+    });
+  } catch (e) {
+    // Emit error state to notify UI that an error occurred during removal
+    emit(RemoveeCartDataErrorState(error: e.toString()));
+    print('Error removing product from cart: $e');
+  }
+}
+
 }

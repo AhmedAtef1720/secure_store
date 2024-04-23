@@ -41,3 +41,12 @@ class UpdateCartDataErrorState extends AuthStates{
 
   UpdateCartDataErrorState({required this.error});
 }
+
+// Remove from fav
+class RemoveCartDataLoadingState extends AuthStates{}
+class RemoveCartDataSuccesState extends AuthStates{}
+class RemoveeCartDataErrorState extends AuthStates{
+  final String error;
+
+  RemoveeCartDataErrorState({required this.error});
+}

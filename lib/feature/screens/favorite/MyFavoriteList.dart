@@ -2,10 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secure_store/core/services/routing.dart';
 import 'package:secure_store/core/widget/noschdule.dart';
 import 'package:secure_store/core/widget/product_card.dart';
 import 'package:secure_store/feature/home/product_details.dart';
+
+import '../../presentation/data/cubit/auth_cubit.dart';
 
 class MyFavoriteList extends StatefulWidget {
   const MyFavoriteList({super.key, this.product});
@@ -77,6 +80,7 @@ class _MyFavoriteListState extends State<MyFavoriteList> {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = BlocProvider.of<AuthCubit>(context);
     return SafeArea(
       child: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -113,6 +117,8 @@ class _MyFavoriteListState extends State<MyFavoriteList> {
                               description: Cart['productDescription'],
                               image: Cart['productImage'], phone: '',
                             ));
+                      },onRemovedPressed: ()async{
+                        await authCubit.removeProductFromCart(productId: Cart['productPrice']);
                       },
                     );
                   },

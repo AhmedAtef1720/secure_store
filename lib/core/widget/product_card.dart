@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
+import 'package:secure_store/feature/presentation/data/cubit/auth_cubit.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard(
-      {super.key,
-      required this.title,
-      required this.image,
-      required this.price,
-      
-      required this.onPressed});
+  const ProductCard({
+    super.key,
+    required this.title,
+    required this.image,
+    required this.price,
+    required this.onPressed,
+    required this.onRemovedPressed,
+  });
 
   final String title;
   final String image;
   final String price;
-  
+
   final Function()? onPressed;
+  final Function onRemovedPressed;
   @override
   Widget build(BuildContext context) {
+    
     return Padding(
       padding: const EdgeInsets.only(top: 3.0),
       child: Card(
@@ -26,21 +31,10 @@ class ProductCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Container(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 0),
-          width: double.infinity,
-          height: 80,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                offset: const Offset(-3, 0),
-                blurRadius: 15,
-                color: Colors.grey.withOpacity(.1),
-              )
-            ],
-          ),
-          child: TextButton(
-            onPressed: onPressed,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+            onTap: onPressed,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -53,7 +47,7 @@ class ProductCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                         color: appcolors.whitecolor),
                     child: Image.network(
-                     image,
+                      image,
                       height: 50,
                       width: 50,
                       fit: BoxFit.contain,
@@ -61,7 +55,7 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 20,
+                  width: 10,
                 ),
                 Expanded(
                   child: Column(
@@ -79,10 +73,13 @@ class ProductCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-              
+                Spacer(),
+                IconButton(
+                  onPressed: ()=>onRemovedPressed(),                  icon: const Icon(
+                    Icons.delete_outline,
+                    color: Colors.red,
+                  ),
+                )
               ],
             ),
           ),
