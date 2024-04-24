@@ -95,18 +95,18 @@ class _productListState extends State<productList> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(product['productTitle'],
-                                          style: getTitleStyle(
+                                          style: getTitleStyle(fontSize: 12,
                                               color: appcolors.primerycolor)),
                                       Text(product['productPrice'],
-                                          style: getbodyStyle()),
-                                      Row(
-                                        children: [
-                                          Text(product['productDescription'],
-                                              maxLines: 1,
-                                              style: getsmallStyle(
-                                                  color: Colors.white)),
-                                        ],
-                                      ),
+                                          style: getbodyStyle(fontSize: 11)),
+                                      // Row(
+                                      //   children: [
+                                      //     // Text(product['productDescription'],
+                                      //     //     maxLines: 2,
+                                      //     //     style: getsmallStyle(
+                                      //     //         color: Colors.white)),
+                                      //   ],
+                                      // ),
                                       Text(product['productPhone'],
                                           maxLines: 1,
                                           style: getsmallStyle(
@@ -130,7 +130,7 @@ class _productListState extends State<productList> {
                                   },
                                   Function: () {},
                                 ),
-                                const Gap(20),
+                              
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
