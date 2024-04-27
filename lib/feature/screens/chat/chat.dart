@@ -14,7 +14,7 @@ class _chatViewState extends State<chatView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appcolors.whitecolor,
-      body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text('chat',style: getsmallStyle(color:Colors.black ),)])),
+      body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text('chat',style: getsmallStyle(color:Colors.black ,),),],),),
     );
   }
 }
