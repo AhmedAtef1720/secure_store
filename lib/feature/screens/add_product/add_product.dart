@@ -15,6 +15,10 @@ import 'package:secure_store/feature/presentation/data/cubit/auth_cubit.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_state.dart';
 import 'package:secure_store/feature/presentation/model/view/categoryList.dart';
 import 'package:secure_store/feature/presentation/model/view/view_model/Product_model.dart';
+import 'package:secure_store/feature/screens/profile/userProfile.dart';
+import 'package:secure_store/feature/screens/profile/userProfile.dart';
+import 'package:secure_store/feature/screens/profile/userProfile.dart';
+import 'package:secure_store/feature/screens/profile/userProfile.dart';
 import 'package:uuid/uuid.dart';
 
 class addProductView extends StatefulWidget {
@@ -244,8 +248,10 @@ class _addProductViewState extends State<addProductView> {
                     // ... rest of your code
                     TextButton(
                         onPressed: () async {
+                          final user = FirebaseAuth.instance.currentUser;
+                          final authCubit =context.read<AuthCubit>();
                           if (_formKey.currentState!.validate()) {
-                            context.read<AuthCubit>().updateProductData(
+                            authCubit.updateProductData(
                                 ProductModel(
                                     productId: _Title.text,
                                     productTitle: _Title.text,
@@ -253,7 +259,11 @@ class _addProductViewState extends State<addProductView> {
                                     productCategory: _category,
                                     productDescription: _Description.text,
                                     productImage: profileUrl ?? '',
-                                    productPhone: _Phone.text));
+                                    productPhone: _Phone.text,
+                          
+                                    userId: user!.uid,
+                                    userName: user.displayName??'None', 
+                                    ));
                           }
                         },
                         child: Text('Done', style: getbodyStyle()))

@@ -117,7 +117,9 @@ class AuthCubit extends Cubit<AuthStates> {
         'productPhone': product.productPhone,
         'productCategory': product.productCategory,
         'productDescription': product.productDescription,
-        'productImage': product.productImage
+        'productImage': product.productImage,
+        'userId':product.userId,
+        'userName':product.userName,
       }, SetOptions(merge: true));
 
       emit(UpdateProductDataSuccesState());

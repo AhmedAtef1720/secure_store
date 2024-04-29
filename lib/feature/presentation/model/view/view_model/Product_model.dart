@@ -8,7 +8,9 @@ class ProductModel {
   final String productDescription;
   final String productPhone;
   final String productImage;
-  ProductModel({
+  final String userId;
+  final String userName;
+  ProductModel(  {
     required this.productPhone,
     required this.productId,
     required this.productTitle,
@@ -16,6 +18,8 @@ class ProductModel {
     required this.productCategory,
     required this.productDescription,
     required this.productImage,
+    required this.userId,
+    required this.userName, 
   });
 
   factory ProductModel.fromFirestore(DocumentSnapshot doc) {
@@ -26,7 +30,9 @@ class ProductModel {
       productPrice: data['productPrice'],
       productCategory: data['productCategory'],
       productDescription: data['productDescription'],
-      productImage: data['productImage'], productPhone: data['productPhone']
+      productImage: data['productImage'], productPhone: data['productPhone'],
+      userName: data['userId'],
+      userId: data['userName'], 
     );
   }
 }

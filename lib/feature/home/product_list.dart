@@ -12,8 +12,9 @@ import 'package:secure_store/feature/presentation/data/cubit/auth_cubit.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_state.dart';
 import 'package:secure_store/feature/presentation/model/view/view_model/Product_model.dart';
 
-import '../../../core/services/showLoadingDialog.dart';
-import '../../screens/favorite/favorite.dart';
+import '../../core/services/showLoadingDialog.dart';
+import '../chat/ui/chat_message_screen/chat_message_screen.dart';
+import '../screens/favorite/favorite.dart';
 
 class productList extends StatefulWidget {
   final category;
@@ -29,7 +30,7 @@ class _productListState extends State<productList> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? user;
-  bool isVisable =true;
+  bool isVisable = true;
 
   Future<void> _getUser() async {
     user = _auth.currentUser;
@@ -95,7 +96,8 @@ class _productListState extends State<productList> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(product['productTitle'],
-                                          style: getTitleStyle(fontSize: 12,
+                                          style: getTitleStyle(
+                                              fontSize: 12,
                                               color: appcolors.primerycolor)),
                                       Text(product['productPrice'],
                                           style: getbodyStyle(fontSize: 11)),
@@ -126,11 +128,12 @@ class _productListState extends State<productList> {
                                           description:
                                               product['productDescription'],
                                           image: product['productImage'],
+                                          userId: product['userId'],
+                                          userName: product['userName'],
                                         ));
                                   },
                                   Function: () {},
                                 ),
-                              
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -140,21 +143,16 @@ class _productListState extends State<productList> {
                                         if (state
                                             is UpdateCartDataSuccesState) {
                                           // push(context, const favoriteView());
-                                        } else  
-
+                                        } else
                                           showErrorDialog(
                                               context, const Text('error'));
-                                        
                                       },
                                       child: IconButton(
                                           onPressed: () {
+                                            setState(() {
+                                              isVisable = !isVisable;
+                                            });
 
-                              setState(() {
-                                
-                                isVisable = !isVisable;
-                              });
-                            
-                           
                                             context
                                                 .read<AuthCubit>()
                                                 .updateCartData(
@@ -170,33 +168,30 @@ class _productListState extends State<productList> {
                                                     productImage:
                                                         product['productImage'],
                                                     productPhone: '',
+                                                    userId: product['userId'],
+                                                    userName:
+                                                        product['userName'],
                                                   ),
                                                 );
-
-                                            // if (_formKey.currentState!
-                                            //         .validate() &&
-                                            //     isSelected != -1) {
-                                            //   createCart();
-                                            //   showAlertDialog(
-                                            //     context,
-                                            //     title: 'Done !',
-                                            //     ok: 'press to go to favorite',
-                                            //     onPressed: () {
-                                            //       Navigator.pop(context);
-                                            //       Navigator.pushReplacement(
-                                            //         context,
-                                            //         MaterialPageRoute(
-                                            //           builder: (context) =>
-                                            //               const MyFavoriteList(),
-                                            //         ),
-                                            //       );
-                                            //     },
-                                            //   );
-                                            // }
                                           },
                                           icon: Icon((isVisable)
-                                ? Icons.favorite_border
-                                : Icons.favorite)),
+                                              ? Icons.favorite_border
+                                              : Icons.favorite)),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.push(context,
+                                            MaterialPageRoute(
+                                                builder: (context) {
+                                          return ChatMessageScreen(
+                                            reciverID: product['userId'],
+                                            reciverName: product['userName'],
+                                          );
+                                        }));
+                                      },
+                                      icon: Icon(
+                                        Icons.message_outlined,
+                                      ),
                                     ),
                                   ],
                                 ),

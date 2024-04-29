@@ -8,7 +8,7 @@ import 'package:secure_store/feature/splash.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: FirebaseOptions(
+    options: const FirebaseOptions(
         apiKey: 'AIzaSyBTtAPzqwge2pHYV2AWPre74tqlZ_GuBEg',
         appId: 'com.example.secure_store',
         messagingSenderId: '79961040325',
@@ -22,25 +22,29 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => AuthCubit(),
+    return BlocProvider(
+      create: (context) => AuthCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            inputDecorationTheme: InputDecorationTheme(filled: true,
-                fillColor: appcolors.primerycolor ,
+            inputDecorationTheme: InputDecorationTheme(
+                filled: true,
+                fillColor: appcolors.primerycolor,
                 prefixIconColor: appcolors.whitecolor,
                 enabledBorder: OutlineInputBorder(
-                   borderSide: BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(23))),
             iconTheme: IconThemeData(color: appcolors.primerycolor),
-            backgroundColor: appcolors.whitecolor,
-            appBarTheme: AppBarTheme(
+            appBarTheme: const AppBarTheme(
               centerTitle: true,
               elevation: 0,
-            )),
-        home: SplashView(),
+            ),
+          //  colorScheme: ColorScheme(background: appcolors.whitecolor)
+          ),
+        home: const SplashView(),
         builder: (context, child) {
-          return Directionality(textDirection: TextDirection.ltr, child: child!);
+          return Directionality(
+              textDirection: TextDirection.ltr, child: child!);
         },
       ),
     );
