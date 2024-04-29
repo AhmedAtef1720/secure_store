@@ -21,6 +21,8 @@ class ChatMessage {
       this.sender,
       this.senderImage,
       this.imageUrl});
+
+  get imagepath => null;
 }
 
 class ChatMessages with ChangeNotifier {

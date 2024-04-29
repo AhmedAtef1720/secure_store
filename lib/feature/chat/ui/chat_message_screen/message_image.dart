@@ -15,7 +15,7 @@ class MessageImage extends StatelessWidget {
         children: [
           ClipRRect(
             child: Image.network(
-              message!.imageUrl!,
+              message!.imagepath!,
               fit: BoxFit.fitWidth,
             ),
           )

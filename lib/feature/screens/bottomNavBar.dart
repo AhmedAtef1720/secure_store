@@ -1,6 +1,7 @@
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:secure_store/feature/chat/ui/chat_list_screen/chat_list.dart';
 import 'package:secure_store/feature/home/home.dart';
 import 'package:secure_store/feature/screens/add_product/add_product.dart';
 import 'package:secure_store/feature/screens/chat/chat.dart';
@@ -18,7 +19,7 @@ class NavBarState extends State<NavBar> {
   int _index = 0;
   List<Widget> screens = [
     const homePage(),
-    const chatView(),addProductView(),
+    const ChatList(),addProductView(),
     favoriteView(),
     const ClientProfile(),
   ];

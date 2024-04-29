@@ -1,5 +1,9 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:secure_store/core/utils/AppColors.dart';
+import 'package:secure_store/feature/screens/profile/userProfile.dart';
 
 import '../../model/chat_mesage.dart';
 import 'message_image.dart';
@@ -14,8 +18,8 @@ class Message extends StatelessWidget {
     Widget messageContain(ChatMessage message, int index) {
       switch (message.messageType) {
         case ChatMessageType.text:
-          return MessageText(message: message);
-        case ChatMessageType.text:
+          return MessageText(message: message, );
+        case ChatMessageType.image:
           return MessageImage(message: message, index: index);
         default:
           return const SizedBox();
@@ -33,10 +37,15 @@ class Message extends StatelessWidget {
               : MainAxisAlignment.start,
           children: [
             if (!message.isSender) ...[
-              CircleAvatar(
-                radius: 18,
-                child: Image.network('assets/images/user_5.png'),
-              ),
+               CircleAvatar(
+                                      backgroundColor: appcolors.whitecolor,
+                                      radius: 20,
+                                      backgroundImage: (imagePath != null)
+                                          ? FileImage(File(imagePath!))
+                                              as ImageProvider
+                                          : const AssetImage(
+                                              'assets/person.png',
+                                            )),
               const SizedBox(
                 width: 10,
               ),

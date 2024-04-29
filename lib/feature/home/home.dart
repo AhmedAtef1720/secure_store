@@ -2,7 +2,7 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
-import 'package:secure_store/feature/home/widget/product_list.dart';
+import 'package:secure_store/feature/home/product_list.dart';
 import 'package:secure_store/feature/presentation/model/view/category_model.dart';
 import 'package:secure_store/feature/screens/search/SearchHomeView.dart';
 import 'package:secure_store/feature/screens/search/presentaition/search_view.dart';

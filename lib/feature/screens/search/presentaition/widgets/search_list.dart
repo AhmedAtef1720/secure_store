@@ -64,6 +64,8 @@ class _SearchListState extends State<searchList> {
                               price: Product['productPrice'],
                               description: Product['productDescription'],
                               image: Product['productImage'], phone: Product['productPhone'],
+                           userId:  Product['userId'],
+                           userName:  Product['userName'],
                             ));
                       },
                       onRemovedPressed: (){},

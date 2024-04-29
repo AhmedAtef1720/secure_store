@@ -116,7 +116,11 @@ class _MyFavoriteListState extends State<MyFavoriteList> {
                               price: Cart['productPrice'],
                               description: Cart['productDescription'],
                               image: Cart['productImage'], phone: '',
-                            ));
+                           
+                           
+                           userId: Cart['userId'],
+                                                    userName:
+                                                        Cart['userName'], ));
                       },onRemovedPressed: ()async{
                         await authCubit.removeProductFromCart(productId: Cart['productPrice']);
                       },

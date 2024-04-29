@@ -39,7 +39,8 @@ class MainApp extends StatelessWidget {
               centerTitle: true,
               elevation: 0,
             ),
-            colorScheme: ColorScheme(background: appcolors.whitecolor)),
+          //  colorScheme: ColorScheme(background: appcolors.whitecolor)
+          ),
         home: const SplashView(),
         builder: (context, child) {
           return Directionality(

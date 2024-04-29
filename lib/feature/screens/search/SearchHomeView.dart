@@ -71,7 +71,8 @@ class _SearchHomeViewState extends State<SearchHomeView> {
                               price: Product['productPrice'],
                               description: Product['productDescription'],
                               image: Product['productImage'], phone: '',
-                                   
+                                   userId:  Product['userId'],
+                           userName:  Product['userName'], 
                                   ),
                                 ),
                               );

@@ -11,12 +11,14 @@ class HomeDetails extends StatefulWidget {
       required this.image,
       required this.price,
       required this.description,
-      required this.phone});
+      required this.phone, required this.userName, required this.userId});
   final String title;
   final String image;
   final String price;
   final String description;
   final String phone;
+  final String userName;
+  final String userId;
   @override
   State<HomeDetails> createState() => _HomeDetailsState();
 }
@@ -139,7 +141,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                   const Text('Posted By',
                       style: TextStyle(color: Colors.white)),
                   Text(
-                    user!.displayName ?? '',
+                    widget.userName ,
                     style: getTitleStyle(color: Colors.white),
                   ),
                   const Text('See Profile',
