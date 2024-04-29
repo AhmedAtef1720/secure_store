@@ -158,7 +158,7 @@ class _ClientProfileState extends State<ClientProfile> {
                                     "${userData!['name']}",
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
-                                    style: getTitleStyle(),
+                                    style: getTitleStyle(fontSize: 15),
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -176,7 +176,7 @@ class _ClientProfileState extends State<ClientProfile> {
                         ),
                         Text(
                           userData['phone'] ?? 'not added',
-                          style: getbodyStyle(),
+                          style: getbodyStyle(fontSize: 12),
                         ),
                         const SizedBox(
                           height: 20,
