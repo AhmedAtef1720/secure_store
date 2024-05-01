@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../model/chat_mesage.dart';
 
 class MessageImage extends StatelessWidget {
-  const MessageImage({this.message, required this.index, super.key});
-  final ChatMessage? message;
+  const MessageImage({required this.index, super.key, this.image});
+  final ChatMessage? image;
   final int index;
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class MessageImage extends StatelessWidget {
         children: [
           ClipRRect(
             child: Image.network(
-              message!.imagepath!,
+              image!.imagepath,
               fit: BoxFit.fitWidth,
             ),
           )

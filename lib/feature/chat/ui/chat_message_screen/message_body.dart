@@ -75,7 +75,7 @@ class _MessageBodyState extends State<MessageBody> {
               return ListView.builder(
                   itemCount: chatMessages.length,
                   itemBuilder: (context, index) => Message(
-                      message: chatMessages[index], index: index));
+                      message: chatMessages[index], index: index, image: chatMessages[index],));
             },
           )),
         ),

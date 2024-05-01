@@ -41,7 +41,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
   }
 
   Future<void> _pickImage() async {
-    _getProduct();
+    
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -147,9 +147,11 @@ class _ChatInputFieldState extends State<ChatInputField> {
                           onPressed: () async {
                             final user = FirebaseAuth.instance.currentUser;
                             final message = messageController.text;
+                            final image=profileUrl;
                             print(message);
                             final messageDoc = {
-                              'message': message,
+                              'message': message ,
+                              'image':image,
                               'id': user!.uid,
                               'sender': user.displayName,
                               'reciver':widget.reciverID,
@@ -174,7 +176,4 @@ class _ChatInputFieldState extends State<ChatInputField> {
       ),
     );
   }
-}
-
-class _getProduct {
 }
