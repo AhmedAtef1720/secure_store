@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:secure_store/feature/chat/model/chats.dart';
 
 class ChatsCard extends StatelessWidget {
   const ChatsCard({ required this.press, super.key, this.reciverName, required chat});
