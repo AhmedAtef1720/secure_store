@@ -63,31 +63,31 @@ class _UserSettingsState extends State<UserSettings> {
                         builder: (contex) => const UserDetails()));
               },
             ),
-            SettingsListItem(
-              icon: Icons.security_rounded,
-              text: 'password',
-              onTap: () {},
-            ),
-            SettingsListItem(
-              icon: Icons.notifications_active_rounded,
-              text: 'notifications',
-              onTap: () {},
-            ),
-            SettingsListItem(
-              icon: Icons.privacy_tip_rounded,
-              text: 'privacy',
-              onTap: () {},
-            ),
-            SettingsListItem(
-              icon: Icons.question_mark_rounded,
-              text: 'support & help',
-              onTap: () {},
-            ),
-            SettingsListItem(
-              icon: Icons.person_add_alt_1_rounded,
-              text: 'invite',
-              onTap: () {},
-            ),
+            // SettingsListItem(
+            //   icon: Icons.security_rounded,
+            //   text: 'password',
+            //   onTap: () {},
+            // ),
+            // SettingsListItem(
+            //   icon: Icons.notifications_active_rounded,
+            //   text: 'notifications',
+            //   onTap: () {},
+            // ),
+            // SettingsListItem(
+            //   icon: Icons.privacy_tip_rounded,
+            //   text: 'privacy',
+            //   onTap: () {},
+            // ),
+            // SettingsListItem(
+            //   icon: Icons.question_mark_rounded,
+            //   text: 'support & help',
+            //   onTap: () {},
+            // ),
+            // SettingsListItem(
+            //   icon: Icons.person_add_alt_1_rounded,
+            //   text: 'invite',
+            //   onTap: () {},
+            // ),
             const Spacer(),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 5),
@@ -108,8 +108,7 @@ class _UserSettingsState extends State<UserSettings> {
                   _signOut();
                 },
                 child: Text(
-                  'تسجل خروج',
-                  style: getTitleStyle(color: appcolors.whitecolor, fontSize: 14),
+                  'Log out',                  style: getTitleStyle(color: appcolors.whitecolor, fontSize: 17),
                 ),
               ),
             ),

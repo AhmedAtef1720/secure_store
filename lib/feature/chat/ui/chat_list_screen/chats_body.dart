@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:secure_store/core/utils/AppColors.dart';
 
 import '../../model/chats.dart';
 import '../chat_message_screen/chat_message_screen.dart';
@@ -68,7 +69,7 @@ class _ChatsBodyState extends State<ChatsBody> {
                 final chat = chats[index];
                 return ListTile(
                   title: Text(chat.name),
-                  subtitle: Text(chat.lastMessage),
+                  subtitle: Text(chat.lastMessage),selectedTileColor: appcolors.primerycolor,
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context){
                       return ChatMessageScreen(

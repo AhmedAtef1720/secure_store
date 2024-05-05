@@ -132,7 +132,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                           },
                           icon: Icon(
                             Icons.camera_alt_outlined,
-                            color: appcolors.primerycolor,
+                             color: appcolors.primerycolor,
                           ),
                         )
                       : const SizedBox(),
