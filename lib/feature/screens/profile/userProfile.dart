@@ -15,17 +15,21 @@ class ClientProfile extends StatefulWidget {
   @override
   _ClientProfileState createState() => _ClientProfileState();
 }
+var imagePath;
 
-User? user;
 
 File? file;
 
 String? profilurl;
 
-var imagePath;
-Future<void> getuser() async {
-  user = FirebaseAuth.instance.currentUser;
-}
+
+  User? user;
+  String? UserID;
+
+  Future<void> _getUser() async {
+    user = FirebaseAuth.instance.currentUser;
+    UserID = user?.uid;
+  }
 
 class _ClientProfileState extends State<ClientProfile> {
   // 1) instance from FirebaseStorage with bucket Url..
@@ -47,7 +51,7 @@ class _ClientProfileState extends State<ClientProfile> {
   }
 
   Future<void> pickImage() async {
-    getuser();
+      _getUser();
     final PickedFile =
     await ImagePicker().pickImage(source: ImageSource.gallery);
     if (PickedFile != null) {
@@ -55,14 +59,15 @@ class _ClientProfileState extends State<ClientProfile> {
         imagePath = PickedFile.path;
         file = File(PickedFile.path);
       });
-    }
-    profilurl = await uploadImageToFireStore(file!);
+    } profilurl = await uploadImageToFireStore(file!, );
+    FirebaseFirestore.instance.collection('Client').doc(UserID).set({
+      'image': profilurl,
+    }, SetOptions(merge: true));
   }
-
   @override
   void initState() {
     super.initState();
-    getuser();
+      _getUser();
   }
 
   @override
@@ -169,6 +174,7 @@ class _ClientProfileState extends State<ClientProfile> {
                                 ],
                               ),
                             ),
+                            
                           ],
                         ),
                         const SizedBox(
@@ -216,7 +222,7 @@ class _ClientProfileState extends State<ClientProfile> {
                               ),
                               TileWidget(
                                   text: userData['rate'] ?? 'not added',
-                                  icon: Icons.star_border_outlined),
+                                  icon: Icons.info_outlined),
                             ],
                           ),
                         ),

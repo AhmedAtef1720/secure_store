@@ -63,11 +63,11 @@ class _UserSettingsState extends State<UserSettings> {
                         builder: (contex) => const UserDetails()));
               },
             ),
-            // SettingsListItem(
-            //   icon: Icons.security_rounded,
-            //   text: 'password',
-            //   onTap: () {},
-            // ),
+            SettingsListItem(
+              icon: Icons.production_quantity_limits,
+              text: 'my products',
+              onTap: () {},
+            ),
             // SettingsListItem(
             //   icon: Icons.notifications_active_rounded,
             //   text: 'notifications',

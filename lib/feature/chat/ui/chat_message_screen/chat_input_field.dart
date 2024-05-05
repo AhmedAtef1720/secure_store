@@ -129,6 +129,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                       ? IconButton(
                           onPressed: () async {
                             await _pickImage();
+                            await sendMessage();
                           },
                           icon: Icon(
                             Icons.camera_alt_outlined,

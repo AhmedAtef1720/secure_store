@@ -9,18 +9,17 @@ class MessageImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.45,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            child: Image.network(
-              image!.imagepath,
-              fit: BoxFit.fitWidth,
-            ),
-          )
-        ],
-      ),
+      width:100,
+      child: image!=null?
+      ClipRRect(
+        child: Image.network(
+          image!.imageUrl!,
+          fit: BoxFit.fitWidth,
+          errorBuilder: (context,object,t){
+            return Icon(Icons.image);
+          },
+        ),
+      ):Icon(Icons.image),
     );
   }
 }

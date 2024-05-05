@@ -51,7 +51,7 @@ class _MessageBodyState extends State<MessageBody> {
                     ChatMessageType type;
                     ChatMessage message;
                     final senderId = data['sender'];
-                    if (data['image'] !=null) {
+                    if (data['image'] != null) {
                       type = ChatMessageType.image;
                       message = ChatMessage(
                         messageType: type,
@@ -59,7 +59,7 @@ class _MessageBodyState extends State<MessageBody> {
                         isSender: User.uid == senderId,
                         senderImage: data['sender'],
                         sender: data['sender'],
-                        imageUrl: data['image'],
+                        imageUrl: data['image'] ?? '',
                       );
                     } else {
                       type = ChatMessageType.text;
@@ -73,8 +73,12 @@ class _MessageBodyState extends State<MessageBody> {
                       );
                     }
                     if ((data['sender'] == User.displayName ||
-                            widget.reciverID == User.displayName) &&
-                        (( data['sender'] == widget.reciverID || widget.reciverID == data['reciver']))) chatMessages.add(message);
+                            widget.reciverID == User.displayName ||
+                            data['reciver'] == User.displayName ||
+                            widget.reciverID == data['reciver']) &&
+                        ((data['sender'] == widget.reciverID ||
+                            widget.reciverID == data['reciver'])))
+                      chatMessages.add(message);
                   }
                   return ListView.builder(
                       itemCount: chatMessages.length,

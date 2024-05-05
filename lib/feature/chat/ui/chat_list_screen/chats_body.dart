@@ -15,37 +15,38 @@ class ChatsBody extends StatefulWidget {
 }
 
 class _ChatsBodyState extends State<ChatsBody> {
- Future<List<Chat>> fetchChats() async {
-  final currentUserID = FirebaseAuth.instance.currentUser!.displayName;
-  final chatsRef = FirebaseFirestore.instance.collection('messages');
+  Future<List<Chat>> fetchChats() async {
+    final currentUserID = FirebaseAuth.instance.currentUser!.displayName;
+    final chatsRef = FirebaseFirestore.instance.collection('messages');
 
-  try {
-    final querySnapshot = await chatsRef
-        .where('sender', isEqualTo: currentUserID)
-        
-        .get();
+    try {
+      final querySnapshot =
+          await chatsRef.where('reciver', isEqualTo: currentUserID).get();
 
-    final List<Chat> chats = querySnapshot.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
-      final isCurrentUserSender = data['sender'] == currentUserID;
+      final senderQuerySnapshot =
+          await chatsRef.where('sender', isEqualTo: currentUserID).get();
 
-      return Chat(
-        name: isCurrentUserSender ? data['reciver'] : data['sender'],
-        lastMessage: data['message'],
-        time: (data['time'] as Timestamp).toDate().toString(),
-        isActive: true,
-        // Add other properties as needed
-      );
-    }).toList();
+      querySnapshot.docs.addAll(senderQuerySnapshot.docs);
 
-    return chats;
-  } catch (e) {
-    print('Error fetching chats: $e');
-    return [];
+      final List<Chat> chats = querySnapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        final isCurrentUserSender = data['sender'] == currentUserID;
+
+        return Chat(
+          name: isCurrentUserSender ? data['reciver'] : data['sender'],
+          lastMessage: data['message'],
+          time: (data['time'] as Timestamp).toDate().toString(),
+          isActive: true,
+          // Add other properties as needed
+        );
+      }).toList();
+
+      return chats;
+    } catch (e) {
+      print('Error fetching chats: $e');
+      return [];
+    }
   }
-}
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +70,14 @@ class _ChatsBodyState extends State<ChatsBody> {
                 final chat = chats[index];
                 return ListTile(
                   title: Text(chat.name),
-                  subtitle: Text(chat.lastMessage),selectedTileColor: appcolors.primerycolor,
+                  subtitle: Text(chat.lastMessage),
+                  selectedTileColor: appcolors.primerycolor,
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return ChatMessageScreen(
-                        reciverID:chat.name ,
-                        reciverName: chat.name ,
+                        reciverID: chat.name,
+                        reciverName: chat.name,
                       );
                     }));
                   },
