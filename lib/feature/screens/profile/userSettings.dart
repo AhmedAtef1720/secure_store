@@ -4,6 +4,7 @@ import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
 import 'package:secure_store/core/widget/settingslistItem.dart';
 import 'package:secure_store/feature/home/auth/loginView.dart';
+import 'package:secure_store/feature/screens/profile/myProducts.dart';
 import 'package:secure_store/feature/screens/profile/userDetailes.dart';
 class UserSettings extends StatefulWidget {
   const UserSettings({super.key});
@@ -66,7 +67,11 @@ class _UserSettingsState extends State<UserSettings> {
             SettingsListItem(
               icon: Icons.production_quantity_limits,
               text: 'my products',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (contex) => const MyProducts()));},
             ),
             // SettingsListItem(
             //   icon: Icons.notifications_active_rounded,

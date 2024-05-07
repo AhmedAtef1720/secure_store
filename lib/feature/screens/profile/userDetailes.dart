@@ -20,9 +20,9 @@ class _UserDetailsState extends State<UserDetails> {
     user = _auth.currentUser;
   }
 
-  List labelName = ["name", "phone",  "rate", "email"];
+  List labelName = ["name", "phone",  "email"];
 
-  List value = ["name", "phone",  "rate", "email"];
+  List value = ["name", "phone",   "email"];
 
   @override
   void initState() {

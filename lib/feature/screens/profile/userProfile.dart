@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
 import 'package:secure_store/core/widget/tileWidget.dart';
+import 'package:secure_store/feature/screens/profile/myProducts.dart';
 import 'package:secure_store/feature/screens/profile/userSettings.dart';
 class ClientProfile extends StatefulWidget {
   const ClientProfile({Key? key}) : super(key: key);
@@ -220,12 +221,17 @@ class _ClientProfileState extends State<ClientProfile> {
                                    const SizedBox(
                                 height: 25,
                               ),
-                              TileWidget(
-                                  text: userData['rate'] ?? 'not added',
-                                  icon: Icons.info_outlined),
                             ],
                           ),
+                        ),  const Divider(),
+                        const SizedBox(
+                          height: 20,
                         ),
+                        Text(
+                          "My products",
+                          style: getbodyStyle(fontWeight: FontWeight.w600),
+                        ),
+                        const MyProducts ()
                       ],
                     )),
               );

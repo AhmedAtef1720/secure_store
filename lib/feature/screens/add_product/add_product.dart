@@ -89,7 +89,7 @@ class _addProductViewState extends State<addProductView> {
           Navigator.pop(context);
           showErrorDialog(context, Text('error'));
         } else {
-          showLoadingDialog(context);
+          CircularProgressIndicator();
         }
       },
       child: Scaffold(
@@ -251,7 +251,7 @@ class _addProductViewState extends State<addProductView> {
                           final user = FirebaseAuth.instance.currentUser;
                           final authCubit =context.read<AuthCubit>();
                           if (_formKey.currentState!.validate()) {
-                            authCubit.updateProductData(
+                            authCubit. updateProductData (
                                 ProductModel(
                                     productId: _Title.text,
                                     productTitle: _Title.text,
@@ -263,7 +263,7 @@ class _addProductViewState extends State<addProductView> {
                           
                                     userId: user!.uid,
                                     userName: user.displayName??'None', 
-                                    ));
+                                    )) ;
                           }
                         },
                         child: Text('Done', style: getbodyStyle()))

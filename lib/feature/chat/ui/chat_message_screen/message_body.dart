@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../model/chat_mesage.dart';
 import 'chat_input_field.dart';
@@ -18,6 +22,30 @@ class MessageBody extends StatefulWidget {
 }
 
 class _MessageBodyState extends State<MessageBody> {
+  Future<void> loadCertificate() async {
+    try {
+      ByteData data = await rootBundle.load('assets/certificate.crt');
+      SecurityContext securityContext = SecurityContext.defaultContext;
+      securityContext.setTrustedCertificatesBytes(data.buffer.asUint8List());
+
+      Fluttertoast.showToast(
+          msg: "Your chat is Secured",
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 20.0);
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  @override
+  void initState() {
+      super.initState();
+      Future.delayed(Duration.zero,(){
+        loadCertificate();
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,7 +84,7 @@ class _MessageBodyState extends State<MessageBody> {
                       message = ChatMessage(
                         messageType: type,
                         messageStatus: MessageStatus.viewed,
-                        isSender: User.uid == senderId,
+                        isSender: User.displayName == data['sender'],
                         senderImage: data['sender'],
                         sender: data['sender'],
                         imageUrl: data['image'] ?? '',
@@ -66,19 +94,18 @@ class _MessageBodyState extends State<MessageBody> {
                       message = ChatMessage(
                         messageType: type,
                         messageStatus: MessageStatus.viewed,
-                        isSender: User.uid == senderId,
+                        isSender: User.displayName == data['sender'],
                         senderImage: data['sender'],
                         sender: data['sender'],
                         text: data['message'],
                       );
                     }
                     if ((data['sender'] == User.displayName ||
-                            widget.reciverID == User.displayName ||
-                            data['reciver'] == User.displayName ||
-                            widget.reciverID == data['reciver']) &&
-                        ((data['sender'] == widget.reciverID ||
-                            widget.reciverID == data['reciver'])))
+                            data['reciver'] == User.displayName) &&
+                        (data['sender'] == widget.reciverID ||
+                            data['reciver'] == widget.reciverID)) {
                       chatMessages.add(message);
+                    }
                   }
                   return ListView.builder(
                       itemCount: chatMessages.length,

@@ -20,7 +20,7 @@ class MessageText extends StatelessWidget {
         children: [
           
                 Text(
-                 user!.displayName??'',
+                 '',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 13,
