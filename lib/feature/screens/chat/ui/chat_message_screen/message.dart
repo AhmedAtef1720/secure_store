@@ -38,18 +38,8 @@ class Message extends StatelessWidget {
               : MainAxisAlignment.start,
           children: [
             if (!message.isSender) ...[
-               CircleAvatar(
-                                      backgroundColor: appcolors.whitecolor,
-                                      radius: 20,
-                                      backgroundImage: (imagePath != null)
-                                          ? FileImage(File(imagePath!))
-                                              as ImageProvider
-                                          : const AssetImage(
-                                              'assets/person.png',
-                                            )),
-              const SizedBox(
-                width: 10,
-              ),
+             
+            
             ],
             messageContain(message, index,image),
           ],

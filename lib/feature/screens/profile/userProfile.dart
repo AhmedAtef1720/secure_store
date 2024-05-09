@@ -178,13 +178,8 @@ class _ClientProfileState extends State<ClientProfile> {
                             
                           ],
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          userData['phone'] ?? 'not added',
-                          style: getbodyStyle(fontSize: 12),
-                        ),
+                       
+                       
                         const SizedBox(
                           height: 20,
                         ),
@@ -194,7 +189,7 @@ class _ClientProfileState extends State<ClientProfile> {
                         ),
                         Text(
                           "contact",
-                          style: getbodyStyle(fontWeight: FontWeight.w600),
+                          style: getbodyStyle(fontWeight: FontWeight.w600,fontSize: 15),
                         ),
                         const SizedBox(
                           height: 10,
@@ -219,17 +214,17 @@ class _ClientProfileState extends State<ClientProfile> {
                                   text: userData['phone'] ?? 'not added',
                                   icon: Icons.call),
                                    const SizedBox(
-                                height: 25,
+                                height: 15,
                               ),
                             ],
                           ),
                         ),  const Divider(),
                         const SizedBox(
-                          height: 20,
+                          height: 7,
                         ),
                         Text(
                           "My products",
-                          style: getbodyStyle(fontWeight: FontWeight.w600),
+                          style: getbodyStyle(fontWeight: FontWeight.w600 ,fontSize: 15) ,
                         ),
                         const MyProducts ()
                       ],

@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secure_store/core/services/routing.dart';
 import 'package:secure_store/core/widget/noschdule.dart';
 import 'package:secure_store/core/widget/product_card.dart';
-import 'package:secure_store/feature/home/product_details.dart';
+import 'package:secure_store/feature/home/home/product_details.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_cubit.dart';
 import 'package:secure_store/feature/presentation/model/view/view_model/Product_model.dart';
 
@@ -35,40 +35,7 @@ class _MyProductsState extends State<MyProducts> {
         .delete();
   }
 
-  showAlertDialog(BuildContext context) {
-    // set up the buttons
-    Widget cancelButton = TextButton(
-      child: const Text("No"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-    Widget continueButton = TextButton(
-      child: const Text("Yes"),
-      onPressed: () {
-        deleteProduct(_documentID!);
-        Navigator.of(context).pop();
-      },
-    );
-
-    // set up the AlertDialog
-    CupertinoAlertDialog alert = CupertinoAlertDialog(
-      title: const Text("Confirm Delete"),
-      content: const Text("Are you sure you want to delete this Appointment?"),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
+ 
 
   @override
   void initState() {

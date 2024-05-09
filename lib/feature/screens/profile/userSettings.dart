@@ -34,7 +34,7 @@ class _UserSettingsState extends State<UserSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor: appcolors.primerycolor,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(

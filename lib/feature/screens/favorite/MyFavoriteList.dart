@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secure_store/core/services/routing.dart';
 import 'package:secure_store/core/widget/noschdule.dart';
 import 'package:secure_store/core/widget/product_card.dart';
-import 'package:secure_store/feature/home/product_details.dart';
+import 'package:secure_store/feature/home/home/product_details.dart';
 
 import '../../presentation/data/cubit/auth_cubit.dart';
 

@@ -13,7 +13,7 @@ import 'package:secure_store/core/utils/textstyle.dart';
 import 'package:secure_store/feature/screens/bottomNavBar.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_cubit.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_state.dart';
-import 'package:secure_store/feature/presentation/model/view/categoryList.dart';
+import 'package:secure_store/feature/presentation/model/view/view_model/categoryList.dart';
 import 'package:secure_store/feature/presentation/model/view/view_model/Product_model.dart';
 import 'package:secure_store/feature/screens/profile/userProfile.dart';
 import 'package:secure_store/feature/screens/profile/userProfile.dart';
